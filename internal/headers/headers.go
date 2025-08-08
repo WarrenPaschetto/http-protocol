@@ -37,12 +37,13 @@ func (h Headers) Parse(data []byte) (n int, done bool, err error) {
 
 	notAllowed := `(),/:;<=>?@[]{}\`
 
-	h.Set(strings.ToLower(key), string(value))
 	for _, c := range notAllowed {
 		if strings.ContainsRune(key, c) {
 			return 0, false, fmt.Errorf("invalid character '%c' in header name: %s", c, key)
 		}
 	}
+
+	h.Set(strings.ToLower(key), string(value))
 	return idx + 2, false, nil
 }
 
