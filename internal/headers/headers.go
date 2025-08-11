@@ -43,7 +43,11 @@ func (h Headers) Parse(data []byte) (n int, done bool, err error) {
 		}
 	}
 
-	h.Set(strings.ToLower(key), string(value))
+	if _, exists := h[strings.ToLower(key)]; exists {
+		h.Set(strings.ToLower(key), h[strings.ToLower(key)]+", "+string(value))
+	} else {
+		h.Set(strings.ToLower(key), string(value))
+	}
 	return idx + 2, false, nil
 }
 
