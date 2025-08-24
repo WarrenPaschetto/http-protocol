@@ -4,11 +4,17 @@ import "net"
 
 type Server struct {
 	// Server fields
+	Addr string
+	Port int
 }
 
 func Serve(port int) (*Server, error) {
 	// Implementation of server start logic
-	return &Server{}, nil
+	server := &Server{
+		Addr: ":8080",
+		Port: port,
+	}
+	return server, nil
 }
 
 func (s *Server) Close() error {
